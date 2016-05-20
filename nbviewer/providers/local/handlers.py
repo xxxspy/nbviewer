@@ -45,12 +45,14 @@ class LocalFileHandler(RenderingHandler):
 
         if not os.path.exists(abspath):
             raise web.HTTPError(404)
+        if not os.path.isfile(abspath):
+            pass
+        else:
+            with io.open(abspath, encoding='utf-8') as f:
+                nbdata = f.read()
 
-        with io.open(abspath, encoding='utf-8') as f:
-            nbdata = f.read()
-
-        yield self.finish_notebook(nbdata, download_url=path,
-                                   msg="file from localfile: %s" % path,
-                                   public=False,
-                                   format=self.format,
-                                   request=self.request)
+            yield self.finish_notebook(nbdata, download_url=path,
+                                       msg="file from localfile: %s" % path,
+                                       public=False,
+                                       format=self.format,
+                                       request=self.request)
