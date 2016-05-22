@@ -55,5 +55,23 @@
       </div>
     </section>
   {% endfor %}
-
+  <section>
+    <div id="cyWallhorizontal" role="cylabs" data-use="wallhorizontal" style="min-height:600px;"></div>
+  </section>
+  <section>
+    <ul class="thumbnails">
+      <li class="col-md-4">
+        <div id="cyWallvertical" role="cylabs" data-use="wallvertical"></div>
+      </li>
+      <li class="col-md-4">
+        <div id="cyReping" role="cylabs" data-use="reping"></div>
+      </li>
+      <li class="col-md-4">
+        <div id="cyHotnews" role="cylabs" data-use="hotnews"></div>
+      </li>
+    </ul>    
+  </section>
 {% endblock body %}
+{% block extra_script %}
+  <script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid=cyspe8Wxz"></script>
+{% endblock extra_script%}
