@@ -38,6 +38,8 @@ WORKDIR /srv/nbviewer
 
 # asset toolchain
 ADD ./package.json /srv/nbviewer/
+RUN npm config set proxy false
+RUN npm cache clean
 RUN npm install .
 
 # python requirements
