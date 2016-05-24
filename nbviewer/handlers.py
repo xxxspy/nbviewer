@@ -6,7 +6,7 @@
 #-----------------------------------------------------------------------------
 from tornado import web
 from tornado.log import app_log
-
+from tornado import gen
 from .utils import transform_ipynb_uri
 
 from .providers import (
@@ -62,7 +62,44 @@ class CreateHandler(BaseHandler):
 
             type(self).uri_rewrite_list = provider_uri_rewrites(providers)
         return self.uri_rewrite_list
-
+class SearchLocalHandler(BaseHandler):
+    @gen.coroutine
+    def get(self):
+        s=self.get_argument('keyword','')
+        if not s:
+            self.redirect('/')
+        else:
+            import os
+            localfile_path=self.settings.get('localfile_path','')
+            if localfile_path and localfile_path != os.path.abspath(""):
+                localfile_path=os.path.abspath(localfile_path)
+                base_url='/localfile'
+                ipynbs=[]
+                nbdirs=[]
+                for dirname,dirs,files in os.walk(localfile_path):
+                    print (dirname,dirs,files)
+                    for d in dirs:
+                        if s in d:
+                            e={}
+                            e['name']=d 
+                            e['url']=os.path.join(base_url,dirname.replace(localfile_path,''))
+                            e['class']='fa-folder-open'
+                            nbdirs.append(e)
+                    for f in files:
+                        if s in f and f.endswith('.ipynb'):
+                            e={}
+                            e['name']=f 
+                            e['url']=os.path.join(base_url,dirname.replace(localfile_path,''))
+                            e['class']='fa-book'
+                            ipynbs.append(e)
+                entries=nbdirs
+                entries.extend(ipynbs)
+            else:
+                entries=[]
+            html=self.render_template('treelist.html',
+                entries=entries,tree_type='localfile',
+                tree_label='localfiels',user='xxxspy')
+            yield self.cache_and_finish(html)
 
 #-----------------------------------------------------------------------------
 # Default handler URL mapping
@@ -86,6 +123,7 @@ def init_handlers(formats, providers):
         ('/index.html', IndexHandler),
         (r'/faq/?', FAQHandler),
         (r'/create/?', CreateHandler),
+        (r'/local/?',SearchLocalHandler),
 
         # don't let super old browsers request data-uris
         (r'.*/data:.*;base64,.*', Custom404),
