@@ -37,7 +37,7 @@ EXPOSE 8080
 WORKDIR /srv/nbviewer
 
 #SET PROXY
-RUN npm config set proxy=http://0.0.0.0:8080
+RUN npm config set registry=http://registry.npmjs.org
 
 # asset toolchain
 ADD ./package.json /srv/nbviewer/
