@@ -36,9 +36,6 @@ EXPOSE 8080
 
 WORKDIR /srv/nbviewer
 
-#set proxy
-RUN npm config set proxy http://localhost:8080
-
 # asset toolchain
 ADD ./package.json /srv/nbviewer/
 RUN npm install .
