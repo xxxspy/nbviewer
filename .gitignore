@@ -9,7 +9,6 @@ __pycache__
 */static/components
 \.ipynb_checkpoints
 bin
-build
 dist
 node_modules
 screenshots
