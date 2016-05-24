@@ -45,6 +45,7 @@ RUN npm install .
 
 # python requirements
 ADD ./requirements.txt /srv/nbviewer/
+ADD ./resources /srv/nbviewer
 # get reduced validation tracebacks from unreleased nbformat-4.1
 RUN pip3 install --no-cache-dir -r requirements.txt && \
     pip3 install --no-cache-dir -e resources/nbformat && \
