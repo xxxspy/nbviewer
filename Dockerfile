@@ -56,20 +56,23 @@ RUN pip3 install --no-cache-dir -r requirements.txt && \
 ADD ./tasks.py /srv/nbviewer/
 
 # front-end dependencies
-ADD ["./nbviewer/static/bower.json", "./nbviewer/static/.bowerrc", \
+ADD ./nbviewer/static/components.tar /srv/nbviewer/nbviewer/static/components
+#ADD ["./nbviewer/static/bower.json", "./nbviewer/static/.bowerrc", \
      "/srv/nbviewer/nbviewer/static/"]
 
 # RUN invoke bower
-WORKDIR /srv/nbviewer/nbviewer/static
-RUN ../../node_modules/.bin/bower install \
-  --allow-root \
-  --config.interactive=false
+#WORKDIR /srv/nbviewer/nbviewer/static
+#RUN ../../node_modules/.bin/bower install \
+#  --allow-root \
+#  --config.interactive=false
 
-WORKDIR /srv/nbviewer
+#WORKDIR /srv/nbviewer
 
 # build css
-ADD . /srv/nbviewer/
-RUN invoke less
+#ADD . /srv/nbviewer/
+#RUN invoke less
+
+#add static/commponets
 
 # root up until now!
 USER nobody
