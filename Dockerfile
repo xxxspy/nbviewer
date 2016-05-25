@@ -58,7 +58,7 @@ ADD ./tasks.py /srv/nbviewer/
 # front-end dependencies
 ADD ./nbviewer/static/components.tar /srv/nbviewer/nbviewer/static/components
 #ADD ["./nbviewer/static/bower.json", "./nbviewer/static/.bowerrc", \
-     "/srv/nbviewer/nbviewer/static/"]
+#     "/srv/nbviewer/nbviewer/static/"]
 
 # RUN invoke bower
 #WORKDIR /srv/nbviewer/nbviewer/static
