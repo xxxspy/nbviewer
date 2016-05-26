@@ -30,9 +30,9 @@ RUN apt-get update \
 
 
 # To change the number of threads use
-# docker run -d -e NBVIEWER_THREADS=4 -p 80:8080 nbviewer
+# docker run -d -e NBVIEWER_THREADS=4 -p 80:5050 nbviewer
 ENV NBVIEWER_THREADS 2
-EXPOSE 8080
+EXPOSE 5050
 
 WORKDIR /srv/nbviewer
 
@@ -77,4 +77,4 @@ ADD . /srv/nbviewer/
 # root up until now!
 USER nobody
 
-CMD ["python3", "-m", "nbviewer", "--port=8080"]
+CMD ["python3", "-m", "nbviewer", "--port=5050"]
