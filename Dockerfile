@@ -69,7 +69,7 @@ ADD ./nbviewer/static/components.tar /srv/nbviewer/nbviewer/static/components
 #WORKDIR /srv/nbviewer
 
 # build css
-#ADD . /srv/nbviewer/
+ADD . /srv/nbviewer/
 #RUN invoke less
 
 #add static/commponets
