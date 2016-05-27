@@ -1,5 +1,5 @@
 # Using the Ubuntu image
-FROM debian:jessie
+FROM jupyter/nbviewer
 
 MAINTAINER Project Jupyter <jupyter@googlegroups.com>
 
