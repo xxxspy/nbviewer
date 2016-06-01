@@ -72,14 +72,17 @@ class SaeBucketHandler(RenderingHandler):
                 nbdata = bucket[path].read()
             except KeyNotFound:
                 raise web.HTTPError(404)
+            if path.endswith('.ipynb'):
+                provider_url=base_url+s+path
+                yield self.finish_notebook(nbdata, download_url=path,
+                                            provider_url=provider_url,
+                                           msg="file from localfile: %s" % path,
+                                           public=False,
+                                           format=self.format,
+                                           request=self.request)
+            else:
+                yield nbdata
 
-            provider_url=base_url+s+path
-            yield self.finish_notebook(nbdata, download_url=path,
-                                        provider_url=provider_url,
-                                       msg="file from localfile: %s" % path,
-                                       public=False,
-                                       format=self.format,
-                                       request=self.request)
 
     def breadcrumbs(self, path, base_url):
         """Generate a list of breadcrumbs"""

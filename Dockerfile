@@ -11,4 +11,4 @@ ADD . /srv/nbviewer/
 RUN invoke less
 
 
-#CMD ["python3", "-m", "nbviewer", "--port=5050" ,"--use_sae_storage","--no_cache"]
+CMD ["python3", "-m", "nbviewer", "--port=5050" ,"--use_sae_storage"]

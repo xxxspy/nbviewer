@@ -104,14 +104,14 @@ def make_app():
     else:
         pool = ThreadPoolExecutor(options.threads)
 
-    memcache_urls = os.environ.get('MEMCACHIER_SERVERS',
-        os.environ.get('MEMCACHE_SERVERS')
-    )
+    # memcache_urls = os.environ.get('MEMCACHIER_SERVERS',
+    #     os.environ.get('MEMCACHE_SERVERS')
+    # )
 
-    # Handle linked Docker containers
-    if(os.environ.get('NBCACHE_PORT')):
-        tcp_memcache = os.environ.get('NBCACHE_PORT')
-        memcache_urls = tcp_memcache.split('tcp://')[1]
+    # # Handle linked Docker containers
+    # if(os.environ.get('NBCACHE_PORT')):
+    #     tcp_memcache = os.environ.get('NBCACHE_PORT')
+    #     memcache_urls = tcp_memcache.split('tcp://')[1]
 
     if(os.environ.get('NBINDEX_PORT')):
         log.app_log.info("Indexing notebooks")
@@ -126,19 +126,20 @@ def make_app():
     if options.no_cache:
         log.app_log.info("Not using cache")
         cache = MockCache()
-    elif pylibmc and memcache_urls:
+    # elif pylibmc and memcache_urls:
+    elif pylibmc:
         kwargs = dict(pool=mc_pool)
-        username = os.environ.get('MEMCACHIER_USERNAME', '')
-        password = os.environ.get('MEMCACHIER_PASSWORD', '')
-        if username and password:
-            kwargs['binary'] = True
-            kwargs['username'] = username
-            kwargs['password'] = password
-            log.app_log.info("Using SASL memcache")
-        else:
-            log.app_log.info("Using plain memecache")
-
-        cache = AsyncMultipartMemcache(memcache_urls.split(','), **kwargs)
+        # username = os.environ.get('MEMCACHIER_USERNAME', '')
+        # password = os.environ.get('MEMCACHIER_PASSWORD', '')
+        # if username and password:
+        #     kwargs['binary'] = True
+        #     kwargs['username'] = username
+        #     kwargs['password'] = password
+        #     log.app_log.info("Using SASL memcache")
+        # else:
+        #     log.app_log.info("Using plain memecache")
+        # cache = AsyncMultipartMemcache(memcache_urls.split(','), **kwargs)
+        cache=AsyncMultipartMemcache(**kwargs)
     else:
         log.app_log.info("Using in-memory cache")
         cache = DummyAsyncCache()
