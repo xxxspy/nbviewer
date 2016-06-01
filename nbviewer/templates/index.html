@@ -2,8 +2,8 @@
 
 {% block body %}
   <header class="jumbotron masthead">
-    <h1>nbviewer</h1>
-    <p>A simple way to share Jupyter Notebooks</p>
+    <h1>MathShare</h1>
+    <p>分享你的notebook</p>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <form method="post" action="create/">
@@ -13,24 +13,11 @@
              type="text"
              name="gistnorurl"
              autofocus="autofocus"
-             placeholder="Github notebooks: URL | GitHub username | GitHub username/repo | Gist ID"/>
+             placeholder="Github notebooks: URL地址 | GitHub 用户名 | GitHub 仓库 | Gist ID"/>
             <span class="input-group-btn">
               <button class="btn btn-default" type="submit" type="button">
                 Go!
               </button>
-            </span>
-          </div>
-        </form>
-        <form method="get" action="local/">
-          <div class="input-group">
-            <input class="form-control" 
-              id="search-input" 
-              name="keyword" 
-              placeholder="local notebooks">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit" type="button">
-                  Go!
-                </button>
             </span>
           </div>
         </form>
