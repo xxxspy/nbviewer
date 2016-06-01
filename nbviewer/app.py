@@ -40,6 +40,7 @@ from .formats import configure_formats
 
 from .providers import default_providers, default_rewrites
 from .providers.local import LocalFileHandler
+from .providers.saestorage import SaeBucketHandler
 
 try:
     from .providers.url.client import NBViewerCurlAsyncHTTPClient as HTTPClientClass
@@ -199,6 +200,20 @@ def make_app():
         fetch_kwargs.update(dict(validate_cert=False))
 
         log.app_log.info("Not validating SSL certificates")
+    if options.use_sae_storage:
+        access_key=os.environ.get('SAE_STORAGE_ACCESS_KEY','')
+        secret_key=os.environ.get('SAE_STORAGE_SECRET_KEY','')
+        bucketname=os.environ.get('SAE_BUCKET_NAME','')
+        if access_key and secret_key and bucketname:
+            import sinastorage
+            sinastorage.setDefaultAppInfo(access_key,secret_key)
+            sinabucket=sinastorage.bucket.SCSBucket(bucketname)
+        else:
+            sinabucket=None
+            log.app_log.error('pleasecheck environ variable: %s , %s, %s' \
+                %('SAE_STORAGE_ACCESS_KEY','SAE_STORAGE_SECRET_KEY','SAE_BACKET_NAME'))
+    else:
+        sinabucket=None
 
     settings = dict(
         log_function=log_request,
@@ -224,7 +239,8 @@ def make_app():
         mathjax_url=options.mathjax_url,
         statsd_host=options.statsd_host,
         statsd_port=options.statsd_port,
-        statsd_prefix=options.statsd_prefix
+        statsd_prefix=options.statsd_prefix,
+        sinabucket=sinabucket,
     )
 
     # handle handlers
@@ -239,7 +255,14 @@ def make_app():
             format_handlers(formats, local_handlers) +
             handlers
         )
-
+    if sinabucket is not None:
+        log.app_log.info('Serving bucket(%s) files' % bucketname)
+        bucket_handlers=[(r'/sae/(.*)',SaeBucketHandler)]
+        handlers = (
+            bucket_handlers +
+            format_handlers(formats, bucket_handlers) +
+            handlers
+        )
     # create the app
     return web.Application(handlers, debug=options.debug, **settings)
 
@@ -274,6 +297,7 @@ def init_options():
     define("statsd_host", default="", help="Host running statsd to send metrics to", type=str)
     define("statsd_port", default=8125, help="Port on which statsd is listening for metrics on statsd_host", type=int)
     define("statsd_prefix", default='nbviewer', help="Prefix to use for naming metrics sent to statsd", type=str)
+    define("use_sae_storage", default=False, help="use sae storage as if localfiles", type=bool)
 
 def main(argv=None):
     init_options()
