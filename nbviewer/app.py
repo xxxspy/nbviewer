@@ -138,8 +138,8 @@ def make_app():
             behaviors={
                 "tcp_nodelay": True,
                 "no_block": True,
-                # # 设置get/set的超时时间
-                # "_poll_timeout": 2000,
+                # 设置get/set的超时时间
+                "_poll_timeout": 2000,
             }
             kwargs['behaviors']=behaviors
             log.app_log.info("Using SASL memcache")

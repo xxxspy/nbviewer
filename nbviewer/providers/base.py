@@ -408,7 +408,8 @@ class BaseHandler(web.RequestHandler):
         try:
             with time_block("cache set %s" % short_url):
                 yield self.cache.set(
-                    self.cache_key, cache_data, int(time.time() + expiry),
+                    #self.cache_key, cache_data, int(time.time() + expiry),
+                    self.cache_key, cache_data
                 )
         except Exception:
             app_log.error("cache set for %s failed", short_url, exc_info=True)
