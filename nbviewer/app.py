@@ -130,10 +130,18 @@ def make_app():
         kwargs = dict(pool=mc_pool)
         username = os.environ.get('ACCESSKEY', '')
         password = os.environ.get('SECRETKEY', '')
+
         if username and password:
             kwargs['binary'] = True
             kwargs['username'] = username
             kwargs['password'] = password
+            behaviors={
+                "tcp_nodelay": True,
+                "no_block": True,
+                # 设置get/set的超时时间
+                "_poll_timeout": 2000,
+            }
+            kwargs['behaviors']=behaviors
             log.app_log.info("Using SASL memcache")
         else:
             log.app_log.info("Using plain memecache")
