@@ -128,8 +128,9 @@ def make_app():
         cache = MockCache()
     # elif pylibmc and memcache_urls:
     #sae not need memcache_urls,but if not supply,will raise error
-    memcache_urls=['127.0.0.l',]
+    
     elif pylibmc:
+        memcache_urls=['127.0.0.l',]
         kwargs = dict(pool=mc_pool)
         kwargs['binary'] = True
         # username = os.environ.get('MEMCACHIER_USERNAME', '')
