@@ -74,6 +74,7 @@ class AsyncMemcache(object):
     """
     def __init__(self, *args, **kwargs):
         self.pool = kwargs.pop('pool', None) or ThreadPoolExecutor(1)
+        
         self.mc = pylibmc.Client(*args, **kwargs)
         self.mc_pool = pylibmc.ThreadMappedPool(self.mc)
     
@@ -138,4 +139,3 @@ class AsyncMultipartMemcache(AsyncMemcache):
             ]
         with self.mc_pool.reserve() as mc:
             return mc.set_multi(values, *args, **kwargs)
-
