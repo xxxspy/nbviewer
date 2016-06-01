@@ -34,7 +34,7 @@ from jinja2 import Environment, FileSystemLoader
 from traitlets.config import Config
 
 from .handlers import init_handlers, format_handlers
-from .cache import DummyAsyncCache, AsyncMultipartMemcache, MockCache, pylibmc
+from .cache import DummyAsyncCache, AsyncMemcache, MockCache, pylibmc
 from .index import NoSearch, ElasticSearch
 from .formats import configure_formats
 
@@ -145,7 +145,7 @@ def make_app():
             log.app_log.info("Using SASL memcache")
         else:
             log.app_log.info("Using plain memecache")
-        cache = AsyncMultipartMemcache(memcache_urls.split(','), **kwargs)
+        cache = AsyncMemcache(memcache_urls.split(','), **kwargs)
     else:
         log.app_log.info("Using in-memory cache")
         cache = DummyAsyncCache()
