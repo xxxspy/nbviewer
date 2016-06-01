@@ -127,8 +127,11 @@ def make_app():
         log.app_log.info("Not using cache")
         cache = MockCache()
     # elif pylibmc and memcache_urls:
+    #sae not need memcache_urls,but if not supply,will raise error
+    memcache_urls=['127.0.0.l',]
     elif pylibmc:
         kwargs = dict(pool=mc_pool)
+        kwargs['binary'] = True
         # username = os.environ.get('MEMCACHIER_USERNAME', '')
         # password = os.environ.get('MEMCACHIER_PASSWORD', '')
         # if username and password:
@@ -139,7 +142,7 @@ def make_app():
         # else:
         #     log.app_log.info("Using plain memecache")
         # cache = AsyncMultipartMemcache(memcache_urls.split(','), **kwargs)
-        cache=AsyncMultipartMemcache(**kwargs)
+        cache = AsyncMultipartMemcache(memcache_urls, **kwargs)
     else:
         log.app_log.info("Using in-memory cache")
         cache = DummyAsyncCache()

@@ -74,7 +74,9 @@ class AsyncMemcache(object):
     """
     def __init__(self, *args, **kwargs):
         self.pool = kwargs.pop('pool', None) or ThreadPoolExecutor(1)
-        
+        # #sae do not need servers parameter ,but if not supply ,will raise error
+        # if not args:
+        #     args.append('127.0.0.1')
         self.mc = pylibmc.Client(*args, **kwargs)
         self.mc_pool = pylibmc.ThreadMappedPool(self.mc)
     
