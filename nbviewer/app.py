@@ -131,7 +131,7 @@ def make_app():
     
     elif pylibmc:
         memcache_urls=['127.0.0.l',]
-        kwargs = dict(pool=mc_pool)
+        # kwargs = dict(pool=mc_pool)
         kwargs['binary'] = True
         # username = os.environ.get('MEMCACHIER_USERNAME', '')
         # password = os.environ.get('MEMCACHIER_PASSWORD', '')
