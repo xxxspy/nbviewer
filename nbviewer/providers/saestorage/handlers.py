@@ -26,8 +26,8 @@ class SaeBucketHandler(RenderingHandler):
     @cached
     @gen.coroutine
     def get(self, path):
+        app_log.info('==============================')
         app_log.info('saehandler path:%s' % path)
-        print ('saehandler path:%s' % path)
         bucket=self.settings.get('sinabucket',None)
         if bucket is None:
             app_log.error('bucket is none')
