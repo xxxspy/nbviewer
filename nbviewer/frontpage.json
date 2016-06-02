@@ -1,6 +1,6 @@
 [
   {
-    "header":"Programming Languages",
+    "header":"编程语言",
     "links":[
       {
         "text": "IPython",
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "header":"Books",
+    "header":"电子书",
     "links":[
       {
         "text": "Python for Signal Processing",

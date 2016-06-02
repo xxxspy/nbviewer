@@ -248,6 +248,8 @@ def make_app():
         statsd_port=options.statsd_port,
         statsd_prefix=options.statsd_prefix,
         sinabucket=sinabucket,
+        cookie_secret='a random code for cookie secret',
+        login_url='/login.html',
     )
 
     # handle handlers

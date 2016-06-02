@@ -34,6 +34,7 @@ class IndexHandler(BaseHandler):
         self.finish(self.render_template('index.html', sections=self.frontpage_sections))
 
 
+
 class FAQHandler(BaseHandler):
     """Render the markdown FAQ page"""
     def get(self):
