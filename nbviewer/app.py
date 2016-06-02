@@ -238,6 +238,7 @@ def make_app():
         cache_expiry_max=options.cache_expiry_max,
         max_cache_uris=max_cache_uris,
         frontpage_sections=frontpage_sections,
+        frontpage_json_file=options.frontpage,
         pool=pool,
         gzip=True,
         render_timeout=options.render_timeout,
