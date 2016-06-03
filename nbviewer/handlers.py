@@ -17,7 +17,7 @@ from .providers.base import (
     BaseHandler,
     format_prefix,
 )
-
+from auth.github_auth import GithubLoginHandler
 #-----------------------------------------------------------------------------
 # Handler classes
 #-----------------------------------------------------------------------------
@@ -124,8 +124,7 @@ def init_handlers(formats, providers):
         ('/index.html', IndexHandler),
         (r'/faq/?', FAQHandler),
         (r'/create/?', CreateHandler),
-        (r'/local/?',SearchLocalHandler),
-
+        (r'/auth/github',GithubLoginHandler),
         # don't let super old browsers request data-uris
         (r'.*/data:.*;base64,.*', Custom404),
     ]

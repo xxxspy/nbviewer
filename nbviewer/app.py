@@ -250,7 +250,8 @@ def make_app():
         statsd_prefix=options.statsd_prefix,
         sinabucket=sinabucket,
         cookie_secret='a random code for cookie secret',
-        login_url='/login.html',
+        login_url='https://github.com/login/oauth/authorize',
+        admin_user_ids=[],
     )
 
     # handle handlers

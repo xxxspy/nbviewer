@@ -2,72 +2,24 @@
 
 {% block body %}
   <form method="post" action="/admin">
-    <input type="input" name="text">
-    <input type="file" name="img">
-    <section>
-      {% for section in sections %}
-      <option value="{{section.header}}">{{section.header}}</option>
-      {% endfor %}
-    </section>
-  </form>
-  <header class="jumbotron masthead">
-    <h1>MathShare</h1>
-    <p>分享你的notebook</p>
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <form method="post" action="create/">
-          <div class="input-group">
-            <input class="form-control"
-             id="main-input"
-             type="text"
-             name="gistnorurl"
-             autofocus="autofocus"
-             placeholder="Github notebooks: URL地址 | GitHub 用户名 | GitHub 仓库 | Gist ID"/>
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="submit" type="button">
-                Go!
-              </button>
-            </span>
-          </div>
-        </form>
-      </div>
+    <div class="form-group">
+      <label for ="text">文本</label>
+      <input type="input" name="text" class="form-control">
     </div>
-  </header>
-
-  {% for section in sections %}
-    <section>
-      <h3 class="section-heading">{{section.header}}</h3>
-      <div class="marketing">
-        <ul class="thumbnails example-sites">
-          {% for link in section.links %}
-            <li class="col-md-4">
-              <p class="marketing-byline">{{link.text}}</p>
-              <a class="thumbnail" href="{{link.target}}" target="_blank">
-                <img src="{{link.img}}" />
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
-  {% endfor %}
-  <section>
-    <div id="cyWallhorizontal" role="cylabs" data-use="wallhorizontal" style="min-height:600px;"></div>
-  </section>
-  <section>
-    <ul class="thumbnails">
-      <li class="col-md-4">
-        <div id="cyWallvertical" role="cylabs" data-use="wallvertical"></div>
-      </li>
-      <li class="col-md-4">
-        <div id="cyReping" role="cylabs" data-use="reping"></div>
-      </li>
-      <li class="col-md-4">
-        <div id="cyHotnews" role="cylabs" data-use="hotnews"></div>
-      </li>
-    </ul>    
-  </section>
+    <div class="form-group">
+      <label for="img" >图片</label>
+      <input type="file" name="img" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>板块</label>
+      <select name="section">
+        {% for section in sections %}
+        <option value="{{section.header}}">{{section.header}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-default">保存</button>
+  </form>
 {% endblock body %}
 {% block extra_script %}
-  <script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid=cyspe8Wxz"></script>
 {% endblock extra_script%}
