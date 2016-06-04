@@ -139,4 +139,3 @@ class AsyncMultipartMemcache(AsyncMemcache):
             ]
         with self.mc_pool.reserve() as mc:
             return mc.set_multi(values, *args, **kwargs)
-
