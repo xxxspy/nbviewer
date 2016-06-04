@@ -187,8 +187,8 @@ def make_app():
     client.cache = cache
 
     # load frontpage sections
-    with io.open(options.frontpage, 'r') as f:
-        frontpage_sections = json.loads(f.read())
+    with open(options.frontpage, 'r') as f:
+        frontpage_sections = json.load(f)
 
     # cache frontpage links for the maximum allowed time
     max_cache_uris = {''}
