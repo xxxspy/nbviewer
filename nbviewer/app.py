@@ -188,7 +188,7 @@ def make_app():
 
     # load frontpage sections
     with io.open(options.frontpage, 'r') as f:
-        frontpage_sections = json.load(f)
+        frontpage_sections = json.loads(f.read())
 
     # cache frontpage links for the maximum allowed time
     max_cache_uris = {''}
