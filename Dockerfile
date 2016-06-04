@@ -13,7 +13,8 @@ ENV LC_ALL en_US.UTF-8
 #EXPOSE 5050
 #WORKDIR /srv/nbviewer
 # build css
-ADD . /srv/nbviewer/
+ADD ./nbviewer/frontpage.json /srv/nbviewer/frontpage.json
+#ADD . /srv/nbviewer/
 #RUN invoke less
 
 
