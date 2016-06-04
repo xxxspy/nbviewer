@@ -1,3 +1,4 @@
+#encoding:utf8
 #-----------------------------------------------------------------------------
 #  Copyright (C) 2013 The IPython Development Team
 #
@@ -250,10 +251,13 @@ def make_app():
         statsd_prefix=options.statsd_prefix,
         sinabucket=sinabucket,
         cookie_secret='a random code for cookie secret',
-        login_url='https://github.com/login/oauth/authorize',
-        admin_user_ids=[],
+        admin_user_ids=[8189217,],
     )
-
+    # github auth
+    client_id=os.environ.get('GITHUB_CLIENT_ID',False)
+    client_key=os.environ.get('GITHUB_CLIENT_SECRET',False)
+    if client_id and client_key:
+        settings['github_login_url']='https://github.com/login/oauth/authorize'
     # handle handlers
     handlers = init_handlers(formats, options.providers)
 

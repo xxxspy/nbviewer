@@ -1,14 +1,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <form method="post" action="/admin">
+<div class="container" style="padding-top: 60px;">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>Frontpage SHow</h2>
+  <form method="post" action="/admin"  enctype="multipart/form-data">
     <div class="form-group">
       <label for ="text">文本</label>
       <input type="input" name="text" class="form-control">
     </div>
     <div class="form-group">
+      <label for ="target">target url</label>
+      <input name="target" type="text" class="form-control">
+    </div>
+    <div class="form-group">
       <label for="img" >图片</label>
-      <input type="file" name="img" class="form-control">
+      <input type="file" name="img" class="form-control" accept="image/png,image/gif,image/jpeg">
     </div>
     <div class="form-group">
       <label>板块</label>
@@ -18,8 +25,26 @@
         {% endfor %}
       </select>
     </div>
-    <button type="submit" class="btn btn-default">保存</button>
+    <button type="submit" class="btn btn-default">add</button>
   </form>
+</div>
+</div>
+<div class="container" style="padding-top: 100px;">
+  <h2>Delete link</h2>
+  <div class="col-md-10 col-md-offset-1">
+  {% for section in sections %}
+    {% for link in section.links %}
+      <form class="form-inline" method="delete" action="/admin">
+        <input name="section" type="text" class="form-control" disabled value="{{ section.header }}">
+        <input name="text" type="text" class="form-control" disabled value="{{ link.text }}">
+        <input name="target" type="text" class="form-control" disabled value="{{ link.target }}">
+        <input name="img" type="text" class="form-conmtrol" disabled value="{{ link.img }}">
+        <button type="submit" class="btn btn-danger" >delete</button>
+      </form>
+    {% endfor %}
+  {% endfor %}
+</div>
+</div>
 {% endblock body %}
 {% block extra_script %}
 {% endblock extra_script%}

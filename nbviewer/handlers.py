@@ -17,7 +17,9 @@ from .providers.base import (
     BaseHandler,
     format_prefix,
 )
-from auth.github_auth import GithubLoginHandler
+from .auth.github_auth import GithubLoginHandler
+from .auth.handlers import AdminHandler
+import os
 #-----------------------------------------------------------------------------
 # Handler classes
 #-----------------------------------------------------------------------------
@@ -124,11 +126,12 @@ def init_handlers(formats, providers):
         ('/index.html', IndexHandler),
         (r'/faq/?', FAQHandler),
         (r'/create/?', CreateHandler),
-        (r'/auth/github',GithubLoginHandler),
         # don't let super old browsers request data-uris
         (r'.*/data:.*;base64,.*', Custom404),
     ]
-
+    if 'GITHUB_CLIENT_ID' in os.environ and 'GITHUB_CLIENT_SECRET' in os.environ:
+        pre_providers.append((r'/admin/?',AdminHandler))
+        pre_providers.append((r'/auth/github/?',GithubLoginHandler))
     post_providers = [
         (r'/(robots\.txt|favicon\.ico)', web.StaticFileHandler),
         (r'.*', Custom404),
