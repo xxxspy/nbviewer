@@ -570,8 +570,20 @@ class RenderingHandler(BaseHandler):
             app_log.debug("Finished render of %s", download_url)
 
         html_time = self.statsd.timer('rendering.html.time').start()
+
+        if breadcrumbs:
+            title=''
+            for b in breadcrumbs:
+                title += (b['name']+'/')
+            title = title[:-1]
+            if len(title)<30:
+                title='Math Share : ' + title
+        else:
+            title="Math Share : Notebook of noname"
+
         html = self.render_template(
             "formats/%s.html" % format,
+            title=title,
             body=nbhtml,
             nb=nb,
             download_url=download_url,
