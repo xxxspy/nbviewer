@@ -124,9 +124,76 @@
     </div>
   </nav>
 
-  {% block container %}<div class="container container-main">
+  {% block container %}
+  <!--sidebar-->
+  <div class="menu" id="sidebar-menu" style="left: -500px;">
+        <div class="main" id="main">
+          <div class="sidebar-box">
+              <!--畅言热门新闻-->
+              <div id="cyHotnews" role="cylabs" data-use="hotnews"></div>
+          </div>
+          <div class="sidebar-box">
+              <!--畅言热门评论-->
+              <div id="cyReping" role="cylabs" data-use="reping"></div>
+          </div>
+          <div class="sidebar-box">
+              <!--畅言热评用户-->
+              <div id="cyHotusers" role="cylabs" data-use="hotusers"></div>
+          </div>
+          <div class="sidebar-box">
+              <!--畅言打赏-->
+              <div id="cyReward" role="cylabs" data-use="reward"></div>
+          </div>
+          <a href="#" class="toggle" id="show-btn"><span class="fa fa-bars"></span></a>
+      </div><!-- /.main -->
+      <div class="second" id="sidebar-second" style="overflow: hidden; width: 0px; display: none;">
+          <a href="#" class="hideSecond" id="hideSecond">
+              <span class="fui-arrow-left"></span> hide</a>
+      </div><!-- /.secondSide -->
+  </div>
+  <style type="text/css">
+  .menu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    z-index: 1000;
+  }
+  .menu .main > a {
+    color: #ecf0f1;
+    display: block;
+    line-height: 35px;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    transition: color 0.5s;
+    font-size: 14px;
+    padding-left: 20px;
+    font-family: "Montserrat",serif;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+  .menu .main {
+    background: none repeat scroll 0 0 #303030;
+    height: 100% !important;
+    overflow-y: auto;
+    padding-top: 20px;
+    width: 210px;
+    height: 100%;
+    float: left;
+    box-shadow: -10px 0 2px rgba(0, 0, 0, 0.08) inset;
+  }
+  .menu .main h3 {
+    font-size: 17px;
+    color: #fff;
+    font-weight: 700;
+    margin: 0px 20px 10px;
+    letter-spacing: 1px;
+  }
+  </style>
+  <!--end sidebar-->
+  <div class="container container-main">
     {% block body %}{% endblock %}
-  </div>{% endblock container %}
+  </div>
+  {% endblock container %}
 
 
   {% block footer %}
@@ -170,14 +237,14 @@
 
   {% block extra_script %}{% endblock %}
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-38683231-2', 'auto');
-    ga('send', 'pageview');
-  </script>
+  // <script>
+  //   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  //     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  //     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  //   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  //   ga('create', 'UA-38683231-2', 'auto');
+  //   ga('send', 'pageview');
+  // </script>
   <script>
     require({
         paths: {
@@ -194,21 +261,39 @@
       });
     });
   </script>
-
+  <!--sidebar-->
+  <script type="text/javascript">
+      $(function(){
+          var menu=$('#sidebar-menu');
+          if (menu){
+              var btn=$('#show-btn');
+              var isShow=false;
+              menu.mouseover(function(){
+                  //show bar
+                  menu.animate({left:'0px'});
+              };
+              menu.mouseout(function(){
+                  //hide bar
+                  menu.animate({left:'500px'});
+              });
+          }
+          
+      });
+  </script>
   <!--baidu auto push -->
-  <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
 </script>
 <!--end of baidu push -->
 
