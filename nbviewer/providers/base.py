@@ -571,10 +571,10 @@ class RenderingHandler(BaseHandler):
 
         html_time = self.statsd.timer('rendering.html.time').start()
 
-        if breadcrumbs:
-            title=breadcrumbs[-1]['name']
+        if download_url:
+            title=download_url.split('/')[-1]
             wei=''
-            for b in breadcrumbs[:-1]:
+            for b in breadcrumbs:
                 wei += b['name']+'/'
             if not wei:
                 wei='Math Share'
