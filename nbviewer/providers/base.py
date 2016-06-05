@@ -10,7 +10,6 @@ import pickle
 import socket
 import time
 import statsd
-from urllib import unquote
 from cgi import escape
 from contextlib import contextmanager
 from datetime import datetime
@@ -22,7 +21,10 @@ try:
 except ImportError:
     from httplib import responses
     from urlparse import urlparse, urlunparse
-
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 from tornado import (
     gen,
     httpclient,
