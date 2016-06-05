@@ -572,14 +572,15 @@ class RenderingHandler(BaseHandler):
         html_time = self.statsd.timer('rendering.html.time').start()
 
         if breadcrumbs:
-            title=''
-            for b in breadcrumbs:
-                title += (b['name']+'/')
-            title = title[:-1]
-            if len(title)<30:
-                title='Math Share : ' + title
+            title=breadcrumbs[-1]['name']
+            wei=''
+            for b in breadcrumbs[:-1]:
+                wei += b['name']+'/'
+            if not wei:
+                wei='Math Share'
+            title = title + '(%s)' % wei
         else:
-            title="Math Share : Notebook of noname"
+            title="Notebook of noname(Math Share)"
 
         html = self.render_template(
             "formats/%s.html" % format,
