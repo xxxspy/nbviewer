@@ -10,7 +10,7 @@ import pickle
 import socket
 import time
 import statsd
-
+from urllib import unquote
 from cgi import escape
 from contextlib import contextmanager
 from datetime import datetime
@@ -573,6 +573,7 @@ class RenderingHandler(BaseHandler):
 
         if download_url:
             title=download_url.split('/')[-1]
+            title=unquote(title)
             wei=''
             for b in breadcrumbs:
                 wei += b['name']+'/'
